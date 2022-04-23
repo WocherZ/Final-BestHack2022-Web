@@ -42,13 +42,18 @@ class Registration(View):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('profile')
         return render(request, 'registration.html', {'form': form})
 
     def get(self, request, *args, **kwargs):
         form = ExtendedRegisterForm()
         return render(request, 'registration.html', {'form': form})
 
+@login_required
+def account(request):
+    if request.user.is_superuser:
+        return redirect('/admin/')
+    else:
+        return redirect('profile')
 
 class Profile(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
