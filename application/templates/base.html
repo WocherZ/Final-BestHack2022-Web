@@ -64,10 +64,11 @@ flex-direction: column;
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{% url 'home' %}" class="nav-link px-3 text-white">Главная</a></li>
-                {% comment %} <li><a href="{% url 'stocks' %}" class="nav-link px-3 text-white">Список акций</a></li>
-                {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'balance' %}" class="nav-link px-3 text-white">Пополнение баланса</a></li>
-                {% endif %} {% endcomment %}
+                {% comment %}
+                    <li><a href="{% url 'stocks' %}" class="nav-link px-3 text-white">Список акций</a></li>
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'balance' %}" class="nav-link px-3 text-white">Пополнение баланса</a></li>
+                    {% endif %} {% endcomment %}
             </ul>
 
             <div class="text-end">
@@ -85,12 +86,14 @@ flex-direction: column;
                         Вход
                     </button>
                 {% endif %}
-                </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
-<div class="container-fluid" style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px">{% block content %}{% endblock %}</div>
+<div class="container-fluid" style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px">
+    {% block content %}
+    {% endblock %}</div>
 
 <div class="footer" style="margin-top: auto; background-color: #000000">
     <div class="container">
