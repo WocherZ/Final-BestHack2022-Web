@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from django.views.decorators.http import require_GET
 from django.views.generic.base import TemplateView, View
 from django.contrib.auth.views import LoginView, LogoutView
 
@@ -89,3 +90,12 @@ def password_reset_request(request):
 
 def error_404(request, exception):
     return render(request, '404.html')
+
+@require_GET
+def robots_txt(request):
+    lines = [
+        "User-Agent: *",
+        "Disallow: /private/",
+        "Disallow: /junk/",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
