@@ -8,6 +8,7 @@ class AuthForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 
+
 class ExtendedRegisterForm(UserCreationForm):
     class Meta:
         model = User

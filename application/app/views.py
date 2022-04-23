@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordResetForm
@@ -5,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail, BadHeaderError
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
@@ -25,12 +26,39 @@ class Home(TemplateView):
         return context
 
 
-class Login(LoginView):
-    template_name = 'login.html'
+def login_request(request):
+    if request.method == "POST":
+        form = AuthForm(request.POST)
 
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            if User.objects.filter(username=username).exists() and not User.objects.get(username=username).is_active:
+                return redirect('block')
+            user = authenticate(request=request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}.")
+                request.session.set_expiry(30 * 60)
+                return redirect('account')
+            else:
+                messages.error(request, "Invalid username or password.")
+        else:
+            messages.error(request, "Invalid username or password.")
+    form = AuthForm()
+    return render(request=request, template_name="login.html", context={"form": form})
+
+
+def block(request):
+    if request.GET:
+        user = User.objects.get(username=request.GET['username'])
+        user.is_active = False
+        user.save()
+    return render(request, template_name='block.html')
 
 class Logout(LogoutView):
     next_page = '/'
+
 
 
 class Registration(View):
@@ -40,13 +68,16 @@ class Registration(View):
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            user = authenticate(request=request, username=username, password=raw_password)
             login(request, user)
+            request.session.set_expiry(30 * 60)
+            return redirect('account')
         return render(request, 'registration.html', {'form': form})
 
     def get(self, request, *args, **kwargs):
         form = ExtendedRegisterForm()
         return render(request, 'registration.html', {'form': form})
+
 
 @login_required
 def account(request):
@@ -54,6 +85,7 @@ def account(request):
         return redirect('/admin/')
     else:
         return redirect('profile')
+
 
 class Profile(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
@@ -95,6 +127,7 @@ def password_reset_request(request):
 
 def error_404(request, exception):
     return render(request, '404.html')
+
 
 @require_GET
 def robots_txt(request):
