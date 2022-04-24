@@ -5,19 +5,21 @@ from django.contrib.auth.models import User
 
 
 class ExtendedUser(User):
-    balance = models.DecimalField(max_digits=32,
-                                  decimal_places=4,
-                                  validators=[MinValueValidator(0)],
-                                  default=0.0,
-                                  )
+    balance = models.DecimalField(
+        verbose_name='баланс',
+        max_digits=32,
+        decimal_places=4,
+        validators=[MinValueValidator(0)],
+        default=0.0,
+
+    )
 
     def __str__(self):
         return self.username
 
     class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = 'Пользователи'
-
+        verbose_name = 'пользователь'
+        verbose_name_plural = 'пользователи'
 
 
 class NewsCategories(models.Model):
@@ -99,7 +101,6 @@ class CurrenciesRates(models.Model):
         validators=[MinValueValidator(0)],
         default=0.0
     )
-
 
     def __str__(self):
         return str(self.second_currency.code) + "/" + str(self.first_currency.code)
@@ -233,7 +234,6 @@ class BuySellOperations(models.Model):
                + " " + str(self.number) \
                + " " + str(self.currency) \
                + " " + str(self.user)
-
 
     class Meta:
         verbose_name = 'Операция покупки-продажи'

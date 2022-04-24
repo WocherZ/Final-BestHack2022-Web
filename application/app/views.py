@@ -4,19 +4,19 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.tokens import default_token_generator
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail, BadHeaderError
 from django.db.models import Q
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.views.decorators.http import require_GET
 from django.views.generic.base import TemplateView, View
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LogoutView
 
 from .forms import *
-
 
 class Home(TemplateView):
     template_name = 'home.html'
@@ -25,6 +25,39 @@ class Home(TemplateView):
         context = super().get_context_data(**kwargs)
         return context
 
+class Currency_rate(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+        currency1 = kwargs['currency1']  # USD
+        currency2 = kwargs['currency2']  # RUB
+        cur1 = get_object_or_404(Currencies, code=currency1)
+        cur2 = get_object_or_404(Currencies, code=currency2)
+        context['currency1'] = cur1.name
+        context['currency1_code'] = cur1.code
+        context['currency2'] = cur2.name
+        context['currency2_code'] = cur2.code
+
+
+        currencies_rate = get_object_or_404(CurrenciesRates,
+                                            first_currency_id=cur2.id,
+                                            second_currency_id=cur1.id)
+        context['current_rate'] = float(currencies_rate.current_rate)
+
+        try:
+            user_property = UserProperties.objects.filter(user_id=request.user.id).get(currency_id=cur1.id)
+            context['user_property'] = user_property.number
+        except ObjectDoesNotExist:
+            context['user_property'] = 0
+
+        context['user_balance'] = ExtendedUser.objects.filter(username=request.user.username).get().balance
+
+        return render(request, template_name='currency_rate.html', context=context)
+
+
+    def post(self, request, *args, **kwargs):
+        print(args)
+        print(kwargs)
+        pass
 
 def login_request(request):
     if request.method == "POST":
@@ -50,7 +83,7 @@ def login_request(request):
 
 
 def block(request):
-    if request.GET:
+    if request.GET and User.objects.filter(username=request.GET['username']).exists():
         user = User.objects.get(username=request.GET['username'])
         user.is_active = False
         user.save()
@@ -64,6 +97,7 @@ class Logout(LogoutView):
 class Registration(View):
     def post(self, request, *args, **kwargs):
         form = ExtendedRegisterForm(request.POST)
+        print(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -137,3 +171,33 @@ def robots_txt(request):
         "Disallow: /junk/",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
+
+def currencies(request):
+    context = {'currencies': []}
+    for cur_object in CurrenciesRates.objects.all():
+        context['currencies'].append({
+            'first_currency': cur_object.first_currency,
+            'second_currency': cur_object.second_currency,
+            'currency_rate': str(cur_object.current_rate),
+            'link': '/currency_rate/' + str(cur_object.second_currency.code) +
+                    '/' + str(cur_object.first_currency.code) + '/'
+        })
+    return render(request, template_name='currencies.html', context=context)
+
+def about(request):
+    return render(request, template_name='about.html')
+
+def themes(request):
+    pass
+
+def dark_theme(request):
+    # JAZZMIN_UI_TWEAKS["dark_mode_theme"]
+    # request.session['theme'] = 1
+    # return redirect('home')
+    pass
+
+def ligth_theme(request):
+    # JAZZMIN_UI_TWEAKS["theme"]
+    # request.session['theme'] = 0
+    # return redirect('home')
+    pass

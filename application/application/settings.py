@@ -22,9 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3-xf23u+o!sm*4iws!i2pwt0)i5*k(k&1tp1552l=)^jsh&94='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+# Settings for email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 AUTHENTICATION_BACKENDS = [
@@ -38,16 +39,17 @@ AUTHENTICATION_BACKENDS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',  # admin panel
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
-    'app',
-
-    'axes',
+    'crispy_forms',  # forms
+    'channels',  # websocket
+    'app',  # project
+    'axes',  # blocking
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -82,6 +84,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'application.wsgi.application'
+ASGI_APPLICATION = 'application.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -115,10 +118,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 TIME_INPUT_FORMATS = [
-    '%H:%M:%S',     # '14:30:59'
+    '%H:%M:%S',
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 USE_I18N = True
 
@@ -141,8 +144,71 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/account/'
+
 AXES_FAILURE_LIMIT = 5
-AXES_LOCK_OUT_AT_FAILURE = True
 AXES_ONLY_USER_FAILURES = True
-AXES_ENABLE_ACCESS_FAILURE_LOG = True
 AXES_LOCKOUT_URL = '/block/'
+AXES_ENABLE_ACCESS_FAILURE_LOG = True
+
+JAZZMIN_SETTINGS = {
+    # title of the window (Will default to current_admin_site.site_title if absent or None)
+    "site_title": "Axiom",
+
+    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_header": "Axiom",
+
+    # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_brand": "Axiom",
+
+    # Logo to use for your site, must be present in static files, used for brand on top left
+    "site_logo": "favicon.ico",
+
+    # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
+    "site_icon": 'favicon.ico',
+
+    # Welcome text on the login screen
+    "welcome_sign": "Добро пожаловать в Axiom",
+
+    # Copyright on the footer
+    "copyright": "Axiom Ltd",
+
+    # The model admin to search from the search bar, search bar omitted if excluded
+    "search_model": "auth.User",
+
+    #############
+    # Side Menu #
+    #############
+
+    # Whether to display the side menu
+    "show_sidebar": True,
+
+    # Whether to aut expand the menu
+    "navigation_expanded": True,
+
+    "hide_apps": ['auth'],
+
+    ############
+    # Top Menu #
+    ############
+
+    # Links to put along the top menu
+    "topmenu_links": [
+
+        # Url that gets reversed (Permissions can be added)
+        {"name": "Просмотреть сайт", "url": 'home', "permissions": ["auth.view_user"]},
+    ],
+}
+
+# Кеширование
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',  # Фиктивное кеширование
+    }
+}
+
+JAZZMIN_SETTINGS["show_ui_builder"] = True
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "flatly",
+    "dark_mode_theme": "darkly",
+}

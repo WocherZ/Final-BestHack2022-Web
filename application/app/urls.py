@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 from django.contrib.auth import views as auth_views
 
 from .views import *
@@ -22,4 +22,10 @@ urlpatterns = [
          name='password_reset_complete'),
     path('robots.txt', robots_txt),
     path('block/', block, name='block'),
+    path('currency_rate/<str:currency1>/<str:currency2>/', Currency_rate.as_view(), name='block'),
+    path('currencies/', currencies, name='currencies'),
+    path('about/', about, name='about'),
+    path('themes/', themes, name='themes'),
+    path('ligth_theme/', ligth_theme, name='ligth_theme'),
+    path('dark_theme/', dark_theme, name='dark_theme'),
 ]
