@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Котировки{% endblock %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid" style="margin-top: 20px; margin-bottom: 20px">
+        <div class="container" style="width: 50%">
+
+            <ul style="list-style-type: none">
+                <li>
+                    <div class="row our_main_divs" style="margin-top: 5px; display: flex; justify-content: center">Список актуальных котировок</div>
+                </li>
+            </ul>
+
+            <ul style="list-style-type: none">
+                {% for cur in currencies %}
+                <li>
+                    <div class="row our_main_divs" style="margin-top: 5px">
+                        <div class="col-6" style="display: flex; justify-content: left">
+                            <a class='our_link' href="{{ cur.link }}">{{ cur.second_currency }}/{{ cur.first_currency }}</a>
+                        </div>
+                        <div class="col-6" style="display: flex; justify-content: right">{{ cur.currency_rate }}</div>
+                    </div>
+                </li>
+                {% endfor %}
+
+            </ul>
+
+            <ul style="list-style-type: none">
+                <li>
+                    <div class="row our_main_divs text-center" style="margin-top: 5px; display: flex; justify-content: center">Наши котировки обновляются каждые две секунды, так что Вы можете не переживать за валидность информации!</div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+{% endblock %}
