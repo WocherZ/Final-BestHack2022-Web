@@ -3,7 +3,16 @@
 {% block title %}Главная страница{% endblock %}
 
 {% load static %}
+{% block files %}
+    <script src="{% static 'js/news.js' %}"></script>
+{% endblock %}
 
 {% block content %}
+<div class="container-fluid" style="margin-top: 20px; margin-bottom: 20px">
+        <div class="container" style="width: 50%">
+            <ul id="test_block" style="list-style-type: none">
 
+            </ul>
+        </div>
+    </div>
 {% endblock %}

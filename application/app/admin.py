@@ -1,10 +1,9 @@
 from django.contrib import admin
-
 from .models import *
 
 
 class ExtendedUserAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['username', 'balance', 'is_active', 'is_staff', 'is_superuser']
 
 
 admin.site.register(ExtendedUser, ExtendedUserAdmin)
@@ -71,4 +70,3 @@ class BuySellOperationsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(BuySellOperations, BalanceOperationsAdmin)
-

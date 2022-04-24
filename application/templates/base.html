@@ -1,13 +1,9 @@
 <!DOCTYPE html>
-{% load static %}
-<html lang="en" style="height: 100%">
+<html lang="ru" style="height: 100%">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -20,20 +16,47 @@
             integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
             crossorigin="anonymous"></script>
 
-    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+
     {% block files %}
     {% endblock %}
-</head>
-<body style="
-min-height: 100%;
-display: flex;
-flex-direction: column;
-">
 
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none">
-    <symbol id="youtube" viewBox="0 0 16 16">
-        <title>youtube</title>
-        <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+    <link rel="stylesheet" href="{% static 'css/dark_theme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    {#    {% if request.session.theme %}#}
+    {#        <link rel="stylesheet" href="{% static 'css/dark_theme.css' %}">#}
+    {#    {% elif %}#}
+    {#        <link rel="stylesheet" href="{% static 'css/form.css' %}">#}
+    {#    {% endif %}#}
+
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body class="our_body">
+
+<svg style="display: none">
+    <symbol id="new_cool_logo" viewBox="0 0 3229.69 1532.88">
+        <defs>
+            <style>.cls-1 {
+                fill: #01b075;
+            }</style>
+        </defs>
+        <path d="M1217.55,1233.76l.26-.15-36.2-95.88-.39.23L866.65,308.57l-54-142.45-54,142.45-309.09,815,139.08-81.78L812.63,451l280.14,738.65-.14.08,36.19,95.86.28-.16L1286,1699H1394ZM979.24,1256,842.62,1022.27l-51-87.22-87.24,51-121.63,71.1.17-.44L371.09,1181.24l-.18-.31L182.5,1291.06,230.59,1380l156.29-91.35-.44,1.16,139.06-81.76h0l.21-.54,229.67-134.25L892,1307l51,87.22,177.07-103.5-36.19-95.87Zm415.07-242.62-203.94,119.2,36.2,95.88,215.82-126.15ZM380.77,1304.75l-78.69,207.47L231.24,1699H339.3l26.29-69.31L519.84,1223Z"
+              transform="translate(-182.5 -166.12)"/>
+        <rect x="1931.86" y="826.58" width="100.89" height="706.3"/>
+        <rect class="cls-1" x="1931.86" y="622.88" width="100.89" height="127.64"/>
+        <polygon
+                points="1614.15 1077.88 1787.09 1532.88 1679.15 1532.88 1560.18 1219.86 1441.21 1532.88 1333.3 1532.88 1506.22 1077.88 1333.3 622.88 1441.22 622.88 1560.18 935.89 1679.14 622.88 1787.09 622.88 1614.15 1077.88"/>
+        <path d="M2359.8,789v910h453.52V789Zm100.89,809.26V889.81h251.74v708.45Z"
+              transform="translate(-182.5 -166.12)"/>
+        <polygon
+                points="3229.69 622.88 3229.69 1532.88 3128.8 1532.88 3128.8 886.35 3056.79 1061.54 3002.73 1193.05 2948.67 1061.54 2876.69 886.43 2876.69 1532.88 2775.8 1532.88 2775.8 622.88 2876.48 622.88 2876.69 623.4 3002.73 930.02 3128.8 623.32 3128.98 622.88 3229.69 622.88"/>
+    </symbol>
+
+    <symbol id="only_a_letter" viewBox="0 0 18.9 23">
+        <path d="M1802.8,926h0l-.54-1.44h0l-4.72-12.44-.81-2.14-.81,2.14-4.63,12.23,2.08-1.23,3.36-8.86,4.21,11.08h0l.55,1.44h0l2.35,6.2h1.62Zm-3.58.33-2-3.5-.76-1.31-1.31.76-1.83,1.07h0l-3.18,1.87h0l-2.83,1.65.72,1.33,2.35-1.37v0l2.09-1.22h0l3.44-2,2.05,3.51.77,1.31,2.65-1.55-.54-1.44Zm6.23-3.63-3.06,1.78.54,1.44,3.24-1.89Zm-15.21,4.37-1.18,3.11L1788,933h1.62l.4-1,2.31-6.1Z"
+              transform="translate(-1787.27 -910)"/>
     </symbol>
 
     <symbol id="mail" viewBox="0 0 16 16">
@@ -46,83 +69,85 @@ flex-direction: column;
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"/>
     </symbol>
 
-    <symbol id="whatsapp" viewBox="0 0 16 16">
-        <title>whatsapp</title>
-        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
-    </symbol>
-
 </svg>
 
-<header class="container-fluid" style="color: white; background-color: #000000; padding: 10px">
-    <div class="container" style="font-size: 20px">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="{% url 'home' %}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg style="fill: white" class="bi me-2" width="50" height="40" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#logo"/>
-                </svg>
-            </a>
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="{% url 'home' %}" class="nav-link px-3 text-white">Главная</a></li>
-                {% comment %} <li><a href="{% url 'stocks' %}" class="nav-link px-3 text-white">Список акций</a></li>
-                {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'balance' %}" class="nav-link px-3 text-white">Пополнение баланса</a></li>
-                {% endif %} {% endcomment %}
-            </ul>
+<header class="container-fluid our_header">
+    <div class="container" style="display: table">
+        <div class="row">
+            <div class="col-2">
+                <a href="{% url 'home' %}">
+                    <svg class="main_big_logo">
+                        <use xlink:href="#new_cool_logo"/>
+                    </svg>
+                </a>
+            </div>
 
-            <div class="text-end">
+            <div class="col-6">
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="{% url 'home' %}" class="nav-link px-3 our_link">Главная</a></li>
+                    <li><a href="{% url 'currencies' %}" class="nav-link px-3 our_link">Котировки</a></li>
+                    <li><a href="{% url 'about' %}" class="nav-link px-3 our_link">О нас</a></li>
+                </ul>
+            </div>
+
+            <div class="col-3" style="display: flex; justify-content: right; font-size: 1rem">
                 {% if request.user.is_authenticated %}
-                    <button type="button" class="btn btn-outline-light me-2"
+                    <button type="button" class="our_green_button"
+                            style="box-sizing: content-box"
                             onclick="location.href='{% url 'profile' %}'">{{ user.get_username }}</button>
-                    <button type="button" class="btn btn-warning me-2" onclick="location.href='{% url 'logout' %}'">
-                        Выход
+                    <button type="button" class="our_green_button" style="margin-left: 10px; box-sizing: content-box"
+                            onclick="location.href='{% url 'logout' %}'">
+                        Выйти
                     </button>
                 {% else %}
-                    <button type="button" class="btn btn-outline-light me-2"
-                            onclick="location.href='{% url 'registration' %}'">Регистрация
+                    <button type="button" class="our_green_button" style="box-sizing: content-box"
+                            onclick="location.href='{% url 'login' %}'">Войти
                     </button>
-                    <button type="button" class="btn btn-warning me-2" onclick="location.href='{% url 'login' %}'">
-                        Вход
+                    <button type="button" class="our_green_button" style="margin-left: 10px; box-sizing: content-box"
+                            onclick="location.href='{% url 'registration' %}'">
+                        Зарегистрироваться
                     </button>
                 {% endif %}
+            </div>
+            <div class="col-1 text-center theme_link">
+                <a href="{% url 'themes' %}" class="nav-link our_link" style="padding-left: 0">Темы</a>
+                <div class="theme_menu">
+                    <ul style="list-style-type: none; padding: 0">
+                        <li><a class="nav-link px-3 our_link" href="{% url 'ligth_theme' %}">Светлая тема</a></li>
+                        <li><a class="nav-link px-3 our_link" href="{% url 'dark_theme' %}">Темная тема</a></li>
+                        {#                        <li><a class="nav-link px-3 our_link" href="#">Еще какая-то тема</a></li>#}
+                    </ul>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
-<div class="container-fluid" style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px">{% block content %}{% endblock %}</div>
+<div class="container-fluid" style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 20px">
+    {% block content %}{% endblock %}</div>
 
-<div class="footer" style="margin-top: auto; background-color: #000000">
+<div class="footer our_footer">
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
             <div class="col-md-4 d-flex align-items-center">
                 <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                    <svg style="fill: white" class="bi" width="30" height="24">
-                        <use xlink:href="#logo"></use>
+                    <svg class="only_a_logo">
+                        <use xlink:href="#only_a_letter"></use>
                     </svg>
                 </a>
-                <span class="text-muted">© Axiom 2022</span>
+                <span class="text-muted footer_text">© Axiom 2022</span>
             </div>
 
             <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                <li class="ms-3"><a class="text-muted" href="#">
-                    <svg style="fill: white" class="bi" width="24" height="24">
-                        <use xlink:href="#youtube"></use>
-                    </svg>
-                </a></li>
-                <li class="ms-3"><a class="text-muted" href="#">
-                    <svg style="fill: white" class="bi" width="24" height="24">
+                <li class="ms-3"><a href="#">
+                    <svg class="mail_logo">
                         <use xlink:href="#mail"></use>
                     </svg>
                 </a></li>
-                <li class="ms-3"><a class="text-muted" href="#">
-                    <svg style="fill: white" class="bi" width="24" height="24">
+                <li class="ms-3"><a href="#">
+                    <svg class="telegram_logo">
                         <use xlink:href="#telegram"></use>
-                    </svg>
-                </a></li>
-                <li class="ms-3"><a class="text-muted" href="#">
-                    <svg style="fill: white" class="bi" width="24" height="24">
-                        <use xlink:href="#whatsapp"></use>
                     </svg>
                 </a></li>
             </ul>

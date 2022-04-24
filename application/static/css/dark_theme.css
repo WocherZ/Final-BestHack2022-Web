@@ -1,0 +1,90 @@
+.our_body {
+    background-color: #16171b;
+
+}
+
+.our_header {
+    background-color: #202125;
+}
+
+.our_main_divs {
+    background-color: #202125;
+    color: lightgray;
+}
+
+.our_footer {
+    background-color: #202125;
+}
+
+
+.our_link:visited {
+    color: lightgray;
+}
+.our_link:link {
+    color: lightgray;
+}
+.our_link:hover {
+    color: lightgray;
+}
+.our_link:active {
+    color: lightgray;
+}
+
+.highlighted_text {
+    color: #ff553a;
+}
+
+/**/
+
+.our_green_button {
+    background-color: rgba(76,255,92,0.77);
+    color: white;
+}
+
+.our_green_button:hover {
+    background-color: lightgray;
+    color: black;
+}
+
+.our_green_button:active {
+	background-color: green;
+}
+
+/**/
+
+.text_field_buy_or_sell {
+    background-color: black;
+}
+
+.main_big_logo {
+    fill: lightgray;
+}
+
+.theme_link:hover > div {
+    background-color: #01b075;
+}
+
+.only_a_logo {
+    fill: lightgray;
+}
+
+.telegram_logo, .mail_logo {
+    fill: lightgray;
+}
+
+.footer_text {
+    color: lightgray;
+}
+
+.border-top {
+    border-color: red;
+}
+
+.news_menu:hover > .sub_news_menu {
+    background: #16171b;
+    border-color: lightgray;
+}
+
+.sad_smile {
+    fill: red;
+}
