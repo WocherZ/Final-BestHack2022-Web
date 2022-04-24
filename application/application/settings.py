@@ -138,6 +138,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+STATIC_ROOT = BASE_DIR / 'statics'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -209,6 +211,6 @@ CACHES = {
 JAZZMIN_SETTINGS["show_ui_builder"] = True
 
 JAZZMIN_UI_TWEAKS = {
-    "theme": "flatly",
+    "theme": "darkly",
     "dark_mode_theme": "darkly",
 }
